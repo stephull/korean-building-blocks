@@ -1,0 +1,1 @@
+# scrape-entries.py : Use web scraping tools to tabulate dictionary entries for words/letters in Korean.
