@@ -17,9 +17,27 @@ html {
   background-color: var(--def-bg);
 }
 
+#app-logo {
+  width: 90px;
+  height: 90px;
+  margin-top: -15px;
+}
+
 .mainApp {
   background-color: var(--app-bg);
   padding: 10px;
+}
+
+.title {
+  font-weight: bold;
+  margin: 1.5%;
+  margin-left: 2.5%;
+  margin-bottom: 2.5%;
+  padding: 10px;
+  background-color: pink;
+  border-radius: 1em;
+  max-width: 550px;
+  margin-bottom: -0.5em;
 }
 
 .interact-panel {
@@ -47,6 +65,7 @@ html {
   padding: 15px;
   justify-content: center;
   align-items: center;
+  border-radius: 1em;
 }
 
 #panel-instruct {
@@ -59,21 +78,46 @@ html {
   background-color: white;
   border: 1px solid black;
   margin: 2.5%;
-  height: 240px;
-  width: 240px;
+}
+
+.mainBoard {
+  height: 270px;
+  width: 270px;
+}
+
+.sideBoard {
+  height: 75px;
+  width: 75px;
 }
 
 .helper {
   margin: 1.5%;
   background-color: bisque;
-  padding: 1em;
+  padding: 0.5em;
   border-radius: 1em;
+  width: 270px;
   border: 1px solid sandybrown;
+}
+
+.assistant-text {
+  padding: 0em 1em;
+}
+
+.assistant-main {
+  margin-top: -0.25em;
+  font-size: 24px;
 }
 
 .customButton {
   border-radius: 0.5em;
   text-align: center;
+}
+
+.ctrlButton {
+  background-color: white;
+  padding: 5px;
+  border: 1px solid black;
+  margin-right: 1em;
 }
 
 .headerButton {
@@ -102,10 +146,11 @@ html {
   100% {border-radius: 0;}
 }
 
-.panelButton:hover, .headerButton:hover {
+.panelButton:hover, .headerButton:hover, .ctrlButton:hover {
   animation: buttonAnimate;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
+  font-weight: bold;
 }
 
 .letterHolder {
