@@ -5,6 +5,7 @@
   --hover-letter: rgb(236, 236, 236);
   --panel-button-bg: rgb(215, 215, 255);
   --hover-panel-button-bg: rgb(165, 165, 254);
+  --letter-size: 80px;
 }
 
 * {
@@ -92,6 +93,7 @@ html {
   font-size: larger;
   background-color: var(--panel-button-bg);
   border: 1px solid blue;
+  width: 100px;
 }
 
 @keyframes buttonAnimate {
@@ -107,8 +109,8 @@ html {
 }
 
 .letterHolder {
-  max-height: 90px;
-  max-width: 90px;
+  max-height: var(--letter-size);
+  max-width: var(--letter-size);
   border: 3px solid var(--def-bg);
 }
 

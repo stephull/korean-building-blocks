@@ -13,12 +13,13 @@ function getHeaderItems() {
   let ret = [];
   items.forEach((item) => {
     ret.push(<CustomButton className="customButton headerButton">
-      {item}
+      <b>{item}</b>
     </CustomButton>)
   })
   return ret;
 }
 
+// app (main page)
 export default function App() {
   return (
     <div className="mainApp">
@@ -27,8 +28,7 @@ export default function App() {
       </AppHeader>
       <div className="flex">
         <Panel id="mainPanel" className="panel">
-          <span id="panel-instruct">Click and drag</span>
-          <span id="panel-instruct">to add a letter</span><br/>
+          <span id="panel-instruct">Click and drag to add a letter</span>
           <LetterPanel />
           <CustomButton className="customButton panelButton">
             NEXT
