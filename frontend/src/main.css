@@ -7,6 +7,10 @@
   --hover-panel-button-bg: rgb(165, 165, 254);
 }
 
+* {
+  user-select: none;
+}
+
 html {
   background-color: var(--def-bg);
 }
@@ -14,6 +18,24 @@ html {
 .mainApp {
   background-color: var(--app-bg);
   padding: 10px;
+}
+
+.interact-panel {
+  margin: 1.5%;
+}
+
+.flex-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.appHeader {
+  margin: 1.5% 2.5%;
 }
 
 .panel {
@@ -29,6 +51,22 @@ html {
   text-align: center;
 }
 
+.board {
+  background-color: white;
+  border: 1px solid black;
+  margin: 2.5%;
+  height: 240px;
+  width: 240px;
+}
+
+.helper {
+  margin: 1.5%;
+  background-color: bisque;
+  padding: 1em;
+  border-radius: 1em;
+  border: 1px solid sandybrown;
+}
+
 .letterBlock {
   background-color: white;
   border: 1px solid var(--def-bg);
@@ -37,7 +75,6 @@ html {
   text-align: center;
   font-size: larger;
   font-weight: bold;
-  user-select: none;
 }
 
 .letterBlock:hover {
@@ -47,13 +84,25 @@ html {
 .customButton {
   border-radius: 0.5em;
   text-align: center;
-  font-size: larger;
-  user-select: none;
 }
 
-#panelContinueButton {
+.headerButton {
+  border: 1px solid black;
+  background-color: white;
+  width: 90px;
+  padding: 0.5em;
+  margin-right: 1em;
+}
+
+.headerButton:hover {
+  background-color: var(--hover-letter);
+}
+
+.panelButton {
+  margin-top: 1em;
+  font-size: larger;
   background-color: var(--panel-button-bg);
-  border: 1px solid rgb(0, 0, 255);
+  border: 1px solid blue;
 }
 
 @keyframes panelButtonAnimate {
@@ -62,7 +111,7 @@ html {
   100% {border-radius: 0;}
 }
 
-#panelContinueButton:hover {
+.panelButton:hover {
   animation: panelButtonAnimate;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
