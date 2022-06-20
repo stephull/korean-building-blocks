@@ -1,0 +1,70 @@
+:root {
+  --def-bg: pink;
+  --app-bg: rgb(254, 211, 222);
+  --panel-bg: rgb(255, 245, 194);
+  --hover-letter: rgb(236, 236, 236);
+  --panel-button-bg: rgb(215, 215, 255);
+  --hover-panel-button-bg: rgb(165, 165, 254);
+}
+
+html {
+  background-color: var(--def-bg);
+}
+
+.mainApp {
+  background-color: var(--app-bg);
+  padding: 10px;
+}
+
+.panel {
+  background-color: var(--panel-bg);
+  margin: 2.5%;
+  width: 90px;
+  padding: 15px;
+}
+
+#panel-instruct {
+  font-size: smaller;
+  display: block;
+  text-align: center;
+}
+
+.letterBlock {
+  background-color: white;
+  border: 1px solid var(--def-bg);
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  user-select: none;
+}
+
+.letterBlock:hover {
+  background-color: var(--hover-letter);
+}
+
+.customButton {
+  border-radius: 0.5em;
+  text-align: center;
+  font-size: larger;
+  user-select: none;
+}
+
+#panelContinueButton {
+  background-color: var(--panel-button-bg);
+  border: 1px solid rgb(0, 0, 255);
+}
+
+@keyframes panelButtonAnimate {
+  0% {border-radius: 0.5em;}
+  50% {border-radius: 0.15em;}
+  100% {border-radius: 0;}
+}
+
+#panelContinueButton:hover {
+  animation: panelButtonAnimate;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  background-color: var(--hover-panel-button-bg);
+}
