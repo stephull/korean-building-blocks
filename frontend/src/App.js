@@ -4,43 +4,34 @@ import Board from "./components/Board";
 import CustomButton from "./components/CustomButton";
 import AppHeader from "./components/AppHeader";
 import Helper from "./components/Helper";
-import LetterHolder from "./components/LetterHolder";
+import LetterPanel from "./components/LetterPanel";
 import "./main.css";
 
-// images
-import brick from "./images/default-brick.png";
-
-// all letter codes for images
-const fc_codes = ['g', 'n', 'd', 'l', 'm', 'b', 's', 'x', 'j', 'ch', 'k', 't', 'p', 'h'];
-const fxc_codes = ['g', 'd', 'b', 's', 'j'];
-const v_codes = ['ah', 'ae', 'yah', 'yae', 'uh', 'eh', 'yuh', 'yeh', 'o', 'yo', 'u', 'yu', 'eu', 'ee'];
-const vx_codes = ['ah', 'ae', 'ee', 'uh', 'eh'];
-const lc_codes = [].concat(fc_codes);
-const lxc_codes = ['g', 's', 'j', 'h', 'm', 'b', 't', 'p']
-lc_codes[lc_codes.indexOf('x')] = 'ng';
-Object.freeze(fc_codes, fxc_codes, v_codes, vx_codes, lc_codes, lxc_codes);
-
-// testing for custom button
-var testApp = true;
+// for header
+function getHeaderItems() {
+  let items = ['HOME', 'ABOUT', 'RESOURCES', 'FEEDBACK', "SHARE"];
+  let ret = [];
+  items.forEach((item) => {
+    ret.push(<CustomButton className="customButton headerButton">
+      {item}
+    </CustomButton>)
+  })
+  return ret;
+}
 
 export default function App() {
   return (
     <div className="mainApp">
       <AppHeader className="appHeader flex">
-        <CustomButton className="customButton headerButton">HOME</CustomButton>
-        <CustomButton className="customButton headerButton">ABOUT</CustomButton>
-        <CustomButton className="customButton headerButton">RESOURCES</CustomButton>
-        <CustomButton className="customButton headerButton">FEEDBACK</CustomButton>
-        <CustomButton className="customButton headerButton">SHARE</CustomButton>
+        {getHeaderItems()}
       </AppHeader>
       <div className="flex">
         <Panel id="mainPanel" className="panel">
           <span id="panel-instruct">Click and drag</span>
-          <span id="panel-instruct">to add a letter</span>
-          <LetterHolder id="default-brick" className="imageHolder"
-            src={brick} alt="White brick for testing"/>
+          <span id="panel-instruct">to add a letter</span><br/>
+          <LetterPanel />
           <CustomButton className="customButton panelButton">
-            {(testApp ? "NEXT": "FINISH")}
+            NEXT
           </CustomButton>
         </Panel>
         <div className="stack interact-panel">
