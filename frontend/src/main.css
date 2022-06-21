@@ -1,5 +1,5 @@
 :root {
-  --def-bg: pink;
+  --def-bg: rgb(252, 178, 191);
   --app-bg: rgb(254, 211, 222);
   --panel-bg: rgb(255, 245, 194);
   --hover-letter: rgb(236, 236, 236);
@@ -90,7 +90,7 @@ html {
   width: 75px;
 }
 
-.helper {
+.assist {
   margin: 1.5%;
   background-color: bisque;
   padding: 0.5em;
@@ -111,13 +111,15 @@ html {
 .customButton {
   border-radius: 0.5em;
   text-align: center;
+  margin: 1em;
+  display: block;
 }
 
 .ctrlButton {
   background-color: white;
   padding: 5px;
   border: 1px solid black;
-  margin-right: 1em;
+  margin-right: 0.1em;
 }
 
 .headerButton {
