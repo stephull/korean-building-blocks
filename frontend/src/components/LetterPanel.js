@@ -159,7 +159,7 @@ function getImages(step) {
 
 export default function LetterPanel() {
     const [step, setStep] = useState(0);
-    const upgradeToNextLetters = () => setStep(step + 1);
+    const upgradeToNextLetters = () => setStep((step + 1) % 4);
     return (
         <div>
             {(step < 3) ?
@@ -169,9 +169,8 @@ export default function LetterPanel() {
             <CustomButton 
                 className="customButton panelButton"
                 onClick={upgradeToNextLetters}
-                style={{display: (step === 3) ? "none" : "block"}}
             >
-                {step > 1 ? "FINISH" : "NEXT"}
+                {(step === 3) ? "START OVER" : (step > 1) ? "FINISH" : "NEXT"}
             </CustomButton>
         </div>
     );

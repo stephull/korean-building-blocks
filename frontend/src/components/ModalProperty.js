@@ -3,24 +3,35 @@ import "../main.css";
 
 import PageModal from './PageModal';
 import IconButton from './IconButton';
+import SoundInterface from './SoundInterface';
+import Dictionary from './Dictionary';
 
 export default function ModalProperty(props) {
     const [modalState, setModal] = useState(false);
-    //const toggleModal = setModal(!modalState);
-    const toggleModal = false;  //FIX
+    const toggleModal = (() => setModal((value) => !value));
+
+    const {id, icon} = props;
+    const application = (
+        id === 'sound' ? <SoundInterface /> : 
+        id === 'dictionary' ? <Dictionary /> : 
+        null
+    );
 
     return (
         <div>
             <IconButton
-                className=""
+                className="iconButton"
+                id = {id}
                 onClick={toggleModal}
             >
-                <i className="">{Object(props.icon)}</i>
+                {icon}
             </IconButton>
             {
-                (toggleModal) ? 
-                <PageModal className="pageModal" title={String(props.id).toUpperCase()}>
-                    Hello!
+                (modalState) ? 
+                <PageModal className="pageModal" title={
+                    String(id).toUpperCase()
+                }>
+                    {application}
                 </PageModal> : 
                 <br/>
             }

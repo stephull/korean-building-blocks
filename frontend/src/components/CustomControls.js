@@ -4,7 +4,10 @@ import CustomButton from "./CustomButton";
 
 export default function CustomControls(props) {
     const [doing, setDoing] = useState(true);
-    //const toggleDo = setDoing(!doing);
+    const toggleDo = (() => setDoing((value) => !value));
+
+    const [reset, setReset] = useState(false);
+    const toggleReset = (() => setReset((value) => !value));
 
     return (
       <div
@@ -18,12 +21,13 @@ export default function CustomControls(props) {
               <div className="flex">
                 <CustomButton 
                   className="customButton ctrlButton"
-                  //onClick={toggleDo}
+                  onClick={toggleDo}
                 >
                   {(doing ? "Undo" : "Redo")}
                 </CustomButton>
                 <CustomButton 
                   className="customButton ctrlButton"
+                  onClick={toggleReset}
                 >
                   Reset
                 </CustomButton>
