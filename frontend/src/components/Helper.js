@@ -33,12 +33,12 @@ const DESCRPTIONS = new Map([
 ]);
 
 export default function Helper(props) {
-    const {children} = props;
-    const descAttributes = DESCRPTIONS.get(children);
-    return (
-      <div
-        className={props.className}
-      >
+  const { children } = props;
+  const descAttributes = DESCRPTIONS.get(children);
+  return (
+    <div
+      className={props.className}
+    >
       <div className="flex">
         <div>
           <Board className="board sideBoard">{children}</Board>

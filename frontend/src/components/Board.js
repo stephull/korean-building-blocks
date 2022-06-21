@@ -10,9 +10,9 @@ export default function Board(props) {
             <div className="board-text"
                 style={{
                     textAlign: 'center',
-                    fontSize: (props.className === "board sideBoard") ? 
-                        '48px' : (props.className === "board mainBoard") ? 
-                        '200px' : '16px'
+                    fontSize: (props.className === "board sideBoard") ?
+                        '48px' : (props.className === "board mainBoard") ?
+                            '200px' : '16px'
                 }}
             >
                 {props.children}

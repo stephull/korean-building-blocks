@@ -1,11 +1,8 @@
 import React from 'react';
-import Panel from "./components/Panel";
-import Board from "./components/Board";
+import PanelProperty from "./custom-properties/PanelProperty";
 import AppHeader from "./components/AppHeader";
-import Helper from "./components/Helper";
-import LetterPanel from "./components/LetterPanel";
-import CustomControls from "./components/CustomControls";
-import ModalProperty from './components/ModalProperty';
+import InteractiveProperty from './custom-properties/InteractiveProperty';
+import ModalProperty from './custom-properties/ModalProperty';
 import "./main.css";
 
 // app logo
@@ -24,23 +21,8 @@ export default function App() {
         </div>
       </div>
       <div className="flex">
-        <Panel id="mainPanel" className="panel">
-          <span id="panel-instruct">Click and drag to add a letter in the box</span>
-          <LetterPanel />
-        </Panel>
-        <div className="stack interact-panel">
-          <Board className="board mainBoard"></Board>
-          <div className="iconDiv flex">
-            <ModalProperty className="modalProperty" id="dictionary" icon={
-              <i class="large material-icons">book</i>
-            }/>
-            <ModalProperty className="modalProperty" id="sound" icon={
-              <i class="large material-icons">volume_up</i>
-            }/>
-          </div>
-          <Helper className="assist helper">ㄷ</Helper>
-          <CustomControls className="assist controlpanel" />
-        </div>
+        <PanelProperty />
+        <InteractiveProperty />
       </div>
     </div>
   );

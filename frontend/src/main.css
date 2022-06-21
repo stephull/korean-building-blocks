@@ -58,7 +58,7 @@ html {
   margin: 1.5% 2.5%;
 }
 
-.panel {
+.panelProperty {
   background-color: var(--panel-bg);
   margin: 2.5%;
   width: fit-content;

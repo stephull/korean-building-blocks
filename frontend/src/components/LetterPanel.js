@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import LetterHolder from "./LetterHolder";
 import "../main.css";
-
+import LetterHolder from "./LetterHolder";
 import CustomButton from "./CustomButton";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 // first consonant images
 import fc_g from "../images/fc_g.png";
@@ -96,7 +97,7 @@ const FC_IMG = [
 const LC_ID = [].concat(FC_ID);
 
 const LXC_IMG = [
-    lxc_g, lxc_s, lxc_j, lxc_h, lxc_m, 
+    lxc_g, lxc_s, lxc_j, lxc_h, lxc_m,
     lxc_b, lxc_t, lxc_p
 ], LXC_ID = [
     'ㄱ', 'ㅅ', 'ㅈ', 'ㅎ', 'ㅁ', 'ㅂ', 'ㅌ', 'ㅍ'
@@ -128,7 +129,7 @@ const FORMAT_WIDTH = 3;
 function getImages(step) {
     let arr = [];
     let imgArr, idArr;
-    switch(step) {
+    switch (step) {
         case 0:
             imgArr = FC_IMG;
             idArr = FC_ID;
@@ -150,7 +151,7 @@ function getImages(step) {
             <>
                 {(index % FORMAT_WIDTH === 0) ? <br /> : null}
                 <LetterHolder id={new_id} className="letterHolder"
-                    src={new_img}/>
+                    src={new_img} />
             </>
         );
     })
@@ -163,10 +164,10 @@ export default function LetterPanel() {
     return (
         <div>
             {(step < 3) ?
-                getImages(step) : 
+                getImages(step) :
                 <div><b>You've finished!</b></div>
-            }<br/>
-            <CustomButton 
+            }<br />
+            <CustomButton
                 className="customButton panelButton"
                 onClick={upgradeToNextLetters}
             >
