@@ -121,6 +121,9 @@ if (arrEqual) {
     assert(arrEqual);
 }
 
+//other
+const FORMAT_WIDTH = 3;
+
 // now, back to the main part of the app
 function getImages(step) {
     let arr = [];
@@ -145,7 +148,7 @@ function getImages(step) {
         let new_id = idArr[index];
         arr.push(
             <>
-                {(index % 3 === 0) ? <br /> : null}
+                {(index % FORMAT_WIDTH === 0) ? <br /> : null}
                 <LetterHolder id={new_id} className="letterHolder"
                     src={new_img}/>
             </>
@@ -156,15 +159,13 @@ function getImages(step) {
 
 export default function LetterPanel() {
     const [step, setStep] = useState(0);
-    const upgradeToNextLetters = () => {
-        setStep(step + 1);
-        console.log("Switch contents...");
-    }
-
+    const upgradeToNextLetters = () => setStep(step + 1);
     return (
         <div>
-            {getImages(step)}
-            <br/>
+            {(step < 3) ?
+                getImages(step) : 
+                <div><b>You've finished!</b></div>
+            }<br/>
             <CustomButton 
                 className="customButton panelButton"
                 onClick={upgradeToNextLetters}

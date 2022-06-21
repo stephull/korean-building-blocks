@@ -164,3 +164,21 @@ html {
 .letterHolder:hover {
   opacity: 0.8;
 }
+
+.iconButton {
+  margin-right: 0.5em;
+  background-color: white;
+  border-radius: 1em;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.iconButton:hover {
+  background-color: var(--hover-letter);
+  border: 1px solid gray;
+}
+
+.iconDiv {
+  padding: 0.25em;
+  padding-left: 1em;
+}

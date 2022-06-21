@@ -8,7 +8,7 @@ const items = ['HOME', 'ABOUT', 'RESOURCES', 'FEEDBACK', "SHARE"];
 function getHeaderLinks(item) {
   switch(item) {
     case 'HOME':
-      window.open("/");
+      window.location.reload();
       break;
     case 'ABOUT':
       window.open("/templates/about.html", "_blank");

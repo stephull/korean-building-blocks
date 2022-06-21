@@ -5,6 +5,7 @@ import AppHeader from "./components/AppHeader";
 import Helper from "./components/Helper";
 import LetterPanel from "./components/LetterPanel";
 import CustomControls from "./components/CustomControls";
+import ModalProperty from './components/ModalProperty';
 import "./main.css";
 
 // app logo
@@ -18,8 +19,8 @@ export default function App() {
       <div className="title flex">
         <img id="app-logo" src={appLogo} alt="ㄱㄴㄷㄹ" />
         <div>
-          <span>Korean Building Block Website</span><br />
-          <small>Learn Korean by assembling different characters to create words and sounds.</small>
+          <span>Korean Building Blocks</span><br />
+          <small>Learn Korean by assembling different characters to create words/sounds.</small>
         </div>
       </div>
       <div className="flex">
@@ -28,9 +29,12 @@ export default function App() {
           <LetterPanel />
         </Panel>
         <div className="stack interact-panel">
-          <Board className="board mainBoard">
-          </Board>
-          <Helper className="assist helper" />
+          <Board className="board mainBoard"></Board>
+          <div className="iconDiv flex">
+            <ModalProperty className="modalProperty" id="dictionary" icon="book"/>
+            <ModalProperty className="modalProperty" id="sound" icon="volume_up"/>
+          </div>
+          <Helper className="assist helper">ㄷ</Helper>
           <CustomControls className="assist controlpanel" />
         </div>
       </div>

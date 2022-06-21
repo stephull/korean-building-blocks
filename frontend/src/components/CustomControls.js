@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../main.css";
 import CustomButton from "./CustomButton";
 
 export default function CustomControls(props) {
+    const [doing, setDoing] = useState(true);
+    //const toggleDo = setDoing(!doing);
+
     return (
       <div
             id={props.id}
@@ -15,13 +18,9 @@ export default function CustomControls(props) {
               <div className="flex">
                 <CustomButton 
                   className="customButton ctrlButton"
+                  //onClick={toggleDo}
                 >
-                  Undo
-                </CustomButton>
-                <CustomButton 
-                  className="customButton ctrlButton"
-                >
-                  Redo
+                  {(doing ? "Undo" : "Redo")}
                 </CustomButton>
                 <CustomButton 
                   className="customButton ctrlButton"
