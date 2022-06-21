@@ -5,18 +5,25 @@ import CustomButton from "./components/CustomButton";
 import AppHeader from "./components/AppHeader";
 import Helper from "./components/Helper";
 import LetterPanel from "./components/LetterPanel";
+import CustomControls from "./components/CustomControls";
 import "./main.css";
 
 // app logo
 import appLogo from "./images/extra/app_logo.png";
+
+// other
+const FORM_URL = "https://forms.gle/vDYsqrX5e5UhbNZg7/";
 
 // for header
 function getHeaderItems() {
   let items = ['HOME', 'ABOUT', 'RESOURCES', 'FEEDBACK', "SHARE"];
   let ret = [];
   items.forEach((item) => {
-    ret.push(<CustomButton className="customButton headerButton">
-      <b>{item}</b>
+    // change this later !!!
+    ret.push(<CustomButton 
+      onClick={(item === "FEEDBACK") ? (() => window.open(FORM_URL, "_blank")) : null}
+      className="customButton headerButton">
+        <b>{item}</b>
     </CustomButton>)
   })
   return ret;
@@ -40,39 +47,12 @@ export default function App() {
         <Panel id="mainPanel" className="panel">
           <span id="panel-instruct">Click and drag to add a letter in the box</span>
           <LetterPanel />
-          <CustomButton className="customButton panelButton">
-            NEXT
-          </CustomButton>
         </Panel>
         <div className="stack interact-panel">
           <Board className="board mainBoard">
           </Board>
-          <Helper className="helper help-controls">
-            <div className="flex">
-              <div>
-                <b style={{padding: '10px'}}>Controls</b>
-              </div>
-              <div className="flex">
-                <CustomButton className="customButton ctrlButton">Undo</CustomButton>
-                <CustomButton className="customButton ctrlButton">Redo</CustomButton>
-                <CustomButton className="customButton ctrlButton">Reset</CustomButton>
-              </div>
-            </div>
-          </Helper>
-          <Helper className="helper help-assistant">
-            <div className="flex">
-              <div>
-                <Board className="board sideBoard">ㅂ</Board>
-              </div>
-              <div className="stack assistant-text">
-                <b className="assistant-main">ㅂ</b>
-                <div>
-                  <i>(example)</i><br/>
-                  <span>b- (비읍)</span>
-                </div>
-              </div>
-            </div>
-          </Helper>
+          <Helper className="assist helper" />
+          <CustomControls className="assist controlpanel" />
         </div>
       </div>
     </div>

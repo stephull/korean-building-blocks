@@ -1,13 +1,17 @@
 import React from "react";
 import "../main.css";
 
-export default function CustomButton(props) {
+export default function CustomButton(
+    {id, className, children, onClick = null, style = null}
+) {
     return (
-        <div
-            id={props.id}
-            className={props.className}
+        <button 
+            id={id}
+            className={className}
+            onClick={onClick}
+            style={style}
         >
-            {props.children}
-        </div>
+            {children}
+        </button>
     );
 }

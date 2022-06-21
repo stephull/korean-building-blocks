@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LetterHolder from "./LetterHolder";
 import "../main.css";
+
+import CustomButton from "./CustomButton";
 
 // first consonant images
 import fc_g from "../images/fc_g.png";
@@ -120,8 +122,25 @@ if (arrEqual) {
 }
 
 // now, back to the main part of the app
-function getImages(imgArr, idArr) {
+function getImages(step) {
     let arr = [];
+    let imgArr, idArr;
+    switch(step) {
+        case 0:
+            imgArr = FC_IMG;
+            idArr = FC_ID;
+            break;
+        case 1:
+            imgArr = V_IMG;
+            idArr = V_ID;
+            break;
+        case 2:
+            imgArr = LC_IMG;
+            idArr = LC_ID;
+            break;
+        default:
+            return arr;
+    }
     imgArr.forEach((new_img, index) => {
         let new_id = idArr[index];
         arr.push(
@@ -136,7 +155,23 @@ function getImages(imgArr, idArr) {
 }
 
 export default function LetterPanel() {
+    const [step, setStep] = useState(0);
+    const upgradeToNextLetters = () => {
+        setStep(step + 1);
+        console.log("Switch contents...");
+    }
+
     return (
-        <div>{getImages(FC_IMG, FC_ID)}</div>
+        <div>
+            {getImages(step)}
+            <br/>
+            <CustomButton 
+                className="customButton panelButton"
+                onClick={upgradeToNextLetters}
+                style={{display: (step === 3) ? "none" : "block"}}
+            >
+                {step > 1 ? "FINISH" : "NEXT"}
+            </CustomButton>
+        </div>
     );
 }
