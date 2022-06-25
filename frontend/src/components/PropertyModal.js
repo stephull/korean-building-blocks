@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import "../main.css";
 
-import PageModal from '../components/PageModal';
-import IconButton from '../components/IconButton';
-import SoundInterface from '../components/SoundInterface';
-import Dictionary from '../components/Dictionary';
+import PageModal from './PageModal';
+import IconButton from './IconButton';
+import SoundInterface from './SoundInterface';
+import Dictionary from './Dictionary';
 
-export default function ModalProperty(props) {
+export default function PropertyModal(props) {
     const [modalState, setModal] = useState(false);
     const toggleModal = (() => setModal((value) => !value));
 

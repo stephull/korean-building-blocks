@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import "../main.css";
 import LetterHolder from "./LetterHolder";
 import CustomButton from "./CustomButton";
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 // first consonant images
 import fc_g from "../images/fc_g.png";
@@ -114,12 +112,10 @@ const LXC_IMG = [
 ];
 
 // assertions
-var assert = require("assert");
-var arrEqual = FC_IMG.length !== FC_ID.length || LC_IMG.length !== LC_ID.length || V_IMG.length !== V_ID.length ||
+var arrNotEqual = FC_IMG.length !== FC_ID.length || LC_IMG.length !== LC_ID.length || V_IMG.length !== V_ID.length ||
     FXC_IMG.length !== FXC_ID.length || VX_IMG.length !== VX_ID.length || LXC_IMG.length !== LXC_ID.length;
-if (arrEqual) {
+if (arrNotEqual) {
     window.alert("ERROR: Images not loading, try again.");
-    assert(arrEqual);
 }
 
 //other
@@ -145,12 +141,11 @@ function getImages(step) {
         default:
             return arr;
     }
-    imgArr.forEach((new_img, index) => {
-        let new_id = idArr[index];
+    imgArr.forEach((new_img, i) => {
         arr.push(
             <>
-                {(index % FORMAT_WIDTH === 0) ? <br /> : null}
-                <LetterHolder id={new_id} className="letterHolder"
+                {(i % FORMAT_WIDTH === 0) ? <br /> : null}
+                <LetterHolder id={idArr[i]} className="letterHolder"
                     src={new_img} />
             </>
         );

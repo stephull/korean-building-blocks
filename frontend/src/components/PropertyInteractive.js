@@ -1,20 +1,20 @@
 import React from 'react';
 import "../main.css";
 
-import Board from "../components/Board";
-import Helper from "../components/Helper";
-import CustomControls from "../components/CustomControls";
-import ModalProperty from './ModalProperty';
+import Board from "./Board";
+import Helper from "./Helper";
+import CustomControls from "./CustomControls";
+import PropertyModal from './PropertyModal';
 
-export default function InteractiveProperty() {
+export default function PropertyInteractive() {
     return (
         <div className="stack interact-panel">
           <Board className="board mainBoard"></Board>
           <div className="iconDiv flex">
-            <ModalProperty className="modalProperty" id="dictionary" icon={
+            <PropertyModal className="modalProperty" id="dictionary" icon={
               <i class="large material-icons">book</i>
             }/>
-            <ModalProperty className="modalProperty" id="sound" icon={
+            <PropertyModal className="modalProperty" id="sound" icon={
               <i class="large material-icons">volume_up</i>
             }/>
           </div>
