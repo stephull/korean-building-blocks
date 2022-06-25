@@ -1,15 +1,15 @@
 import React from 'react';
 import AppHeader from "./components/AppHeader";
 import PropertyPanel from "./components/PropertyPanel";
+import PropertyAssist from "./componenets/PropertyAssist";
 import PropertyInteractive from './components/PropertyInteractive';
 import "./main.css";
-
-// for drag-and-drop
+import appLogo from "./images/extra/app_logo.png";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-// app logo
-import appLogo from "./images/extra/app_logo.png";
+// a note for the future:
+// use some useState to transfer data
 
 // app 
 export default function App() {
@@ -27,6 +27,7 @@ export default function App() {
         <div className="flex">
           <PropertyPanel />
           <PropertyInteractive />
+          <PropertyAssist />
         </div>
       </div>
     </DndProvider>

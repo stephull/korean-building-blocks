@@ -1,156 +1,135 @@
 import React, { useState } from 'react';
 import "../main.css";
-import LetterHolder from "./LetterHolder";
+import Letter from "./Letter";
 import CustomButton from "./CustomButton";
 
-// first consonant images
-import fc_g from "../images/fc_g.png";
-import fc_n from "../images/fc_n.png";
-import fc_d from "../images/fc_d.png";
-import fc_l from "../images/fc_l.png";
-import fc_m from "../images/fc_m.png";
-import fc_b from "../images/fc_b.png";
-import fc_s from "../images/fc_s.png";
-import fc_x from "../images/fc_x.png";
-import fc_j from "../images/fc_j.png";
-import fc_ch from "../images/fc_ch.png";
-import fc_k from "../images/fc_k.png";
-import fc_t from "../images/fc_t.png";
-import fc_p from "../images/fc_p.png";
-import fc_h from "../images/fc_h.png";
-
-// first consonant extras
-import fxc_g from "../images/fxc_g.png";
-import fxc_d from "../images/fxc_d.png";
-import fxc_b from "../images/fxc_b.png";
-import fxc_s from "../images/fxc_s.png";
-import fxc_j from "../images/fxc_j.png";
-
-// last consonant images
-import lc_g from "../images/lc_g.png";
-import lc_n from "../images/lc_n.png";
-import lc_d from "../images/lc_d.png";
-import lc_l from "../images/lc_l.png";
-import lc_m from "../images/lc_m.png";
-import lc_b from "../images/lc_b.png";
-import lc_s from "../images/lc_s.png";
-import lc_ng from "../images/lc_ng.png";
-import lc_j from "../images/lc_j.png";
-import lc_ch from "../images/lc_ch.png";
-import lc_k from "../images/lc_k.png";
-import lc_t from "../images/lc_t.png";
-import lc_p from "../images/lc_p.png";
-import lc_h from "../images/lc_h.png";
-
-// last consonant extras
-import lxc_g from "../images/lxc_g.png";
-import lxc_s from "../images/lxc_s.png";
-import lxc_j from "../images/lxc_j.png";
-import lxc_h from "../images/lxc_h.png";
-import lxc_m from "../images/lxc_m.png";
-import lxc_b from "../images/lxc_b.png";
-import lxc_t from "../images/lxc_t.png";
-import lxc_p from "../images/lxc_p.png";
-
-// vowel images
-import v_ah from "../images/v_ah.png";
-import v_ae from "../images/v_ae.png";
-import v_yah from "../images/v_yah.png";
-import v_yae from "../images/v_yae.png";
-import v_uh from "../images/v_uh.png";
-import v_eh from "../images/v_eh.png";
-import v_yuh from "../images/v_yuh.png";
-import v_yeh from "../images/v_yeh.png";
-import v_o from "../images/v_o.png";
-import v_yo from "../images/v_yo.png";
-import v_u from "../images/v_u.png";
-import v_yu from "../images/v_yu.png";
-import v_eu from "../images/v_eu.png";
-import v_ee from "../images/v_ee.png";
-
-// vowel extras
-import vx_ah from "../images/vx_ah.png";
-import vx_ae from "../images/vx_ae.png";
-import vx_ee from "../images/vx_ee.png";
-import vx_uh from "../images/vx_uh.png";
-import vx_eh from "../images/vx_eh.png";
-
-// library
-// a better solution will come later
-const FC_IMG = [
-    fc_g, fc_n, fc_d, fc_l, fc_m, fc_b, fc_s, fc_x,
-    fc_j, fc_ch, fc_k, fc_t, fc_p, fc_h
-], FC_ID = [
-    'ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ',
-    'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
-], FXC_IMG = [
-    fxc_g, fxc_d, fxc_b, fxc_s, fxc_j
-], FXC_ID = [
-    'ㄱ', 'ㄷ', 'ㅂ', 'ㅅ', 'ㅈ'
-], LC_IMG = [
-    lc_g, lc_n, lc_d, lc_l, lc_m, lc_b, lc_s, lc_ng,
-    lc_j, lc_ch, lc_k, lc_t, lc_p, lc_h
-];
-
-const LC_ID = [].concat(FC_ID);
-
-const LXC_IMG = [
-    lxc_g, lxc_s, lxc_j, lxc_h, lxc_m,
-    lxc_b, lxc_t, lxc_p
-], LXC_ID = [
-    'ㄱ', 'ㅅ', 'ㅈ', 'ㅎ', 'ㅁ', 'ㅂ', 'ㅌ', 'ㅍ'
-], V_IMG = [
-    v_ah, v_ae, v_yah, v_yae, v_uh, v_eh, v_yuh, v_yeh,
-    v_o, v_yo, v_u, v_yu, v_eu, v_ee
-], V_ID = [
-    'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ',
-    'ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ'
-], VX_IMG = [
-    vx_ah, vx_ae, vx_ee, vx_uh, vx_eh
-], VX_ID = [
-    'ㅏ', 'ㅐ', 'ㅣ', 'ㅓ', 'ㅔ'
-];
-
-// assertions
-var arrNotEqual = FC_IMG.length !== FC_ID.length || LC_IMG.length !== LC_ID.length || V_IMG.length !== V_ID.length ||
-    FXC_IMG.length !== FXC_ID.length || VX_IMG.length !== VX_ID.length || LXC_IMG.length !== LXC_ID.length;
-if (arrNotEqual) {
-    window.alert("ERROR: Images not loading, try again.");
+// import all images
+// CREDIT GOES TO:
+// https://stackoverflow.com/questions/42118296/dynamically-import-images-from-a-directory-using-webpack 
+function importAllImages(r) {
+    let images = {};
+    r.keys().map((item) => {
+        images[item.replace('./', '')] = r(item)
+    });
+    return images;
 }
+const images = importAllImages(require.context('../images', false, /\.(png|jpe?g|svg)$/));
 
-//other
+// full library of consonants and vowels
+const FIRSTS = [
+    {id: "fc-g", char: 'ㄱ', pic: images['fc_g.png']},
+    {id: "fc-n", char: 'ㄴ', pic: images['fc_n.png']},
+    {id: "fc-d", char: 'ㄷ', pic: images['fc_d.png']},
+    {id: "fc-l", char: 'ㄹ', pic: images['fc_l.png']},
+    {id: "fc-m", char: 'ㅁ', pic: images['fc_m.png']},
+    {id: "fc-b", char: 'ㅂ', pic: images['fc_b.png']},
+    {id: "fc-s", char: 'ㅅ', pic: images['fc_s.png']},
+    {id: "fc-x", char: 'ㅇ', pic: images['fc_x.png']},
+    {id: "fc-j", char: 'ㅈ', pic: images['fc_j.png']},
+    {id: "fc-ch", char: 'ㅊ', pic: images['fc_ch.png']},
+    {id: "fc-k", char: 'ㅋ', pic: images['fc_k.png']},
+    {id: "fc-t", char: 'ㅌ', pic: images['fc_t.png']},
+    {id: "fc-p", char: 'ㅍ', pic: images['fc_p.png']},
+    {id: "fc-h", char: 'ㅎ', pic: images['fc_h.png']},
+]
+const FIRST_EXTRAS = [
+    {id: "fxc-g", char: 'ㄱ', pic: images['fxc_g.png']},
+    {id: "fxc-d", char: 'ㄷ', pic: images['fxc_d.png']},
+    {id: "fxc-b", char: 'ㅂ', pic: images['fxc_b.png']},
+    {id: "fxc-s", char: 'ㅅ', pic: images['fxc_s.png']},
+    {id: "fxc-j", char: 'ㅈ', pic: images['fxc_j.png']},
+]
+const VOWELS = [
+    {id: "v-ah", char: 'ㅏ', pic: images['v_ah.png']},
+    {id: "v-ae", char: 'ㅐ', pic: images['v_ae.png']},
+    {id: "v-yah", char: 'ㅑ', pic: images['v_yah.png']},
+    {id: "v-yae", char: 'ㅒ', pic: images['v_yae.png']},
+    {id: "v-uh", char: 'ㅓ', pic: images['v_uh.png']},
+    {id: "v-eh", char: 'ㅔ', pic: images['v_eh.png']},
+    {id: "v-yuh", char: 'ㅕ', pic: images['v_yuh.png']},
+    {id: "v-yeh", char: 'ㅖ', pic: images['v_yeh.png']},
+    {id: "v-o", char: 'ㅗ', pic: images['v_o.png']},
+    {id: "v-yo", char: 'ㅛ', pic: images['v_yo.png']},
+    {id: "v-u", char: 'ㅜ', pic: images['v_u.png']},
+    {id: "v-yu", char: 'ㅠ', pic: images['v_yu.png']},
+    {id: "v-eu", char: 'ㅡ', pic: images['v_eu.png']},
+    {id: "v-ee", char: 'ㅣ', pic: images['v_ee.png']},
+]
+const VOWEL_EXTRAS = [
+    {id: "vx-ah", char: 'ㅏ', pic: images['vx_ah.png']},
+    {id: "vx-ae", char: 'ㅐ', pic: images['vx_ae.png']},
+    {id: "vx-uh", char: 'ㅓ', pic: images['vx_uh.png']},
+    {id: "vx-eh", char: 'ㅔ', pic: images['vx_eh.png']},
+    {id: "vx-ee", char: 'ㅣ', pic: images['vx_ee.png']},
+]
+const LASTS = [
+    {id: "lc-g", char: 'ㄱ', pic: images['lc_g.png']},
+    {id: "lc-n", char: 'ㄴ', pic: images['lc_n.png']},
+    {id: "lc-d", char: 'ㄷ', pic: images['lc_d.png']},
+    {id: "lc-l", char: 'ㄹ', pic: images['lc_l.png']},
+    {id: "lc-m", char: 'ㅁ', pic: images['lc_m.png']},
+    {id: "lc-b", char: 'ㅂ', pic: images['lc_b.png']},
+    {id: "lc-s", char: 'ㅅ', pic: images['lc_s.png']},
+    {id: "lc-ng", char: 'ㅇ', pic: images['lc_ng.png']},
+    {id: "lc-j", char: 'ㅈ', pic: images['lc_j.png']},
+    {id: "lc-ch", char: 'ㅊ', pic: images['lc_ch.png']},
+    {id: "lc-k", char: 'ㅋ', pic: images['lc_k.png']},
+    {id: "lc-t", char: 'ㅌ', pic: images['lc_t.png']},
+    {id: "lc-p", char: 'ㅍ', pic: images['lc_p.png']},
+    {id: "lc-h", char: 'ㅎ', pic: images['lc_h.png']},
+]
+const LAST_EXTRAS = [
+    {id: "lxc-g", char: 'ㄱ', pic: images['lxc_g.png']},
+    {id: "lxc-s", char: 'ㅅ', pic: images['lxc_s.png']},
+    {id: "lxc-j", char: 'ㅈ', pic: images['lxc_j.png']},
+    {id: "lxc-h", char: 'ㅎ', pic: images['lxc_h.png']},
+    {id: "lxc-m", char: 'ㅁ', pic: images['lxc_m.png']},
+    {id: "lxc-b", char: 'ㅂ', pic: images['lxc_b.png']},
+    {id: "lxc-t", char: 'ㅌ', pic: images['lxc_t.png']},
+    {id: "lxc-p", char: 'ㅍ', pic: images['lxc_p.png']},
+]
+
+// other
 const FORMAT_WIDTH = 3;
 
 // now, back to the main part of the app
 function getImages(step) {
-    let arr = [];
-    let imgArr, idArr;
+    let lib, exr;
     switch (step) {
         case 0:
-            imgArr = FC_IMG;
-            idArr = FC_ID;
+            lib = FIRSTS;
+            exr = FIRST_EXTRAS;
             break;
         case 1:
-            imgArr = V_IMG;
-            idArr = V_ID;
+            lib = VOWELS;
+            exr = VOWEL_EXTRAS;
             break;
         case 2:
-            imgArr = LC_IMG;
-            idArr = LC_ID;
+            lib = LASTS;
+            exr = LAST_EXTRAS;
             break;
         default:
-            return arr;
+            return [];
     }
-    imgArr.forEach((new_img, i) => {
-        arr.push(
+    let present = [], slider = [];
+    lib.forEach((entry, i) => {
+        const {id, char, pic} = entry;
+        present.push(
             <>
                 {(i % FORMAT_WIDTH === 0) ? <br /> : null}
-                <LetterHolder id={idArr[i]} className="letterHolder"
-                    src={new_img} />
+                <Letter id={id} char={char} pic={pic} />
             </>
         );
-    })
-    return arr;
+    });
+    exr.forEach((entry, i) => {
+        const {id, char, pic} = entry;
+        slider.push(
+            <>
+                <Letter id={id} char={char} pic={pic} />
+            </>
+        )
+    });
+    return [present, slider];
 }
 
 export default function LetterPanel() {

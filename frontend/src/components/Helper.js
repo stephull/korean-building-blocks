@@ -1,6 +1,6 @@
 import React from 'react';
 import "../main.css";
-import Board from "./Board";
+import HelperBoard from "./HelperBoard";
 
 const DESCRPTIONS = new Map([
   ['ㄱ', ['-g-', "Good, Great"]],
@@ -41,7 +41,9 @@ export default function Helper(props) {
     >
       <div className="flex">
         <div>
-          <Board className="board sideBoard">{children}</Board>
+          <HelperBoard className="board sideBoard">
+            {children}
+          </HelperBoard>
         </div>
         <div className="assistant-text">
           <b>{descAttributes[0]}</b>

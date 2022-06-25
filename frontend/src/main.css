@@ -155,13 +155,20 @@ html {
   font-weight: bold;
 }
 
-.letterHolder {
+.letter {
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: row;
   max-height: var(--letter-size);
   max-width: var(--letter-size);
-  border: 3px solid var(--def-bg);
 }
 
-.letterHolder:hover {
+.letter img {
+  max-height: var(--letter-size);
+  max-width: var(--letter-size);
+}
+
+.letter:hover {
   opacity: 0.8;
 }
 
