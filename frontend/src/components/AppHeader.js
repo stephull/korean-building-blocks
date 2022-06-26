@@ -6,18 +6,17 @@ const FORM_URL = "https://forms.gle/vDYsqrX5e5UhbNZg7/";
 const items = ['HOME', 'ABOUT', 'RESOURCES', 'FEEDBACK', "SHARE"];
 
 function getHeaderLinks(item) {
-  var i = 0;
   switch (item) {
-    case items[i++]:
+    case items[0]:
       window.location.reload();
       break;
-    case items[i++]:
+    case items[1]:
       window.open("/templates/about.html", "_blank");
       break;
-    case items[i++]:
+    case items[2]:
       window.open("/templates/resources.html", "_blank");
       break;
-    case items[i++]:
+    case items[3]:
       window.open(FORM_URL, "_blank");
       break;
     default:

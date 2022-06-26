@@ -23,6 +23,11 @@ html {
   margin-top: -15px;
 }
 
+.announcement {
+  background-color: blue;
+  padding:1em;
+}
+
 .mainApp {
   background-color: var(--app-bg);
   padding: 10px;
