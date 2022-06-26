@@ -17,8 +17,8 @@ def announcement():
     data = {
         "author": "Stephen",
         "head": "Welcome to our new app!",
-        "msg": "This is a test message",
-        "urgent": False,
+        "msg": "If you're seeing this, it means the backend works and you are on the main page of the app.",
+        "urgent": True,
         "show": True
     }
     return data

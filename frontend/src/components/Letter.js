@@ -4,7 +4,7 @@ import {useDrag} from 'react-dnd';
 import PageModal from './PageModal';
 
 export default function Letter(props) {
-    const {id, char, pic} = props;
+    const {id, char, pic, className, count=null} = props;
     const [{isDragging}, dragRef] = useDrag({
         type: 'letter',
         item: {id, char, pic},
@@ -13,8 +13,8 @@ export default function Letter(props) {
         })
     });
     return (
-        <div className="letter" ref={dragRef}>
-            <img id={id} src={pic} 
+        <div className={className} ref={dragRef}>
+            <img count={count} id={id} src={pic} 
                 alt={"Representation of " + char} />
             {
                 isDragging && 

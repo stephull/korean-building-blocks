@@ -3,10 +3,7 @@ import "../main.css";
 
 export default function Slider(props) {
     return (
-        <div
-            id={props.id}
-            className={props.className}
-        >
+        <div className={props.className}>
             {props.children}
         </div>
     );

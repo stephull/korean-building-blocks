@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import AppHeader from "./components/AppHeader";
 import PropertyPanel from "./components/PropertyPanel";
 import PropertyAssist from "./components/PropertyAssist";
@@ -9,53 +9,54 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import axios from 'axios';
 
-// a note for the future:
-// use some useState to transfer data
-
-// app 
 export default function App() {
   // for backend, show announcements if necessary
   const [update, setUpdate] = useState(null);
+  const [showUpdate, setShow] = useState(true);
   function getUpdate() {
     axios({
       method: 'GET',
       url: "/announcement",
     })
-    .then((res) => {
-      const r = res.data;
-      setUpdate({
-        author: r.author,
-        head: r.head,
-        msg: r.msg,
-        urgent: r.urgent,
-        show: r.show
+      .then((res) => {
+        const r = res.data;
+        setUpdate({
+          author: r.author,
+          head: r.head,
+          msg: r.msg,
+          urgent: r.urgent,
+          show: r.show
+        })
       })
-    })
-    .catch((err) => console.log(
-      (err.response) ? 
-      err.response + '\n' + err.response.status + '\n' + err.response.headers :
-      err 
-    ))
+      .catch((err) => console.log(
+        (err.response) ?
+          err.response + '\n' + err.response.status + '\n' + err.response.headers :
+          err
+      ))
   }
+
+  const announcement = (
+      (update || getUpdate()) && showUpdate &&
+      <div className="announcement" style={{ display: (update.show) ? 'block' : 'none' }}>
+        <b style={{ fontSize: 'smaller', color: 'gray' }}>Announcements</b>
+        <div id="update-contents">
+          <b style={{
+            fontSize: 'larger', backgroundColor: (update.urgent) ? "yellow" : "white"
+          }}>{update.head}</b>
+          <br />
+          <small>{"From: " + update.author}</small>
+          <br />
+          <p>{update.msg}</p>
+        </div>
+        <button onClick={() => setShow(state => !state)}>Close</button>
+      </div>
+  );
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="mainApp">
         <AppHeader className="appHeader flex" />
-        {
-          (getUpdate() || update) &&
-          <>
-            <br/>
-              <div style={{display: (update.show) ? 'block' : 'none'}} className="announcement">
-                <b style={{
-                  fontSize: 'larger', backgroundColor: (update.urgent) ? "yellow" : "white"
-                }}>{update.title}</b><br/>
-                <small>{update.author}</small><br/>
-                <p>{update.msg}</p>
-              </div>
-            <br/>
-          </>
-        }
+        {announcement}
         <div className="title flex">
           <img id="app-logo" src={appLogo} alt="ㄱㄴㄷㄹ - Website Logo" />
           <div>

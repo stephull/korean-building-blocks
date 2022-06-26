@@ -12,10 +12,10 @@ export default function PropertyInteractive() {
           <Board className="board mainBoard"></Board>
           <div className="iconDiv flex">
             <PropertyModal className="modalProperty" id="dictionary" icon={
-              <i class="large material-icons">book</i>
+              <i className="large material-icons">book</i>
             }/>
             <PropertyModal className="modalProperty" id="sound" icon={
-              <i class="large material-icons">volume_up</i>
+              <i className="large material-icons">volume_up</i>
             }/>
           </div>
           <Helper className="assist helper">ㄷ</Helper>

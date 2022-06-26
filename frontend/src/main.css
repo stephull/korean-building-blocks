@@ -24,8 +24,25 @@ html {
 }
 
 .announcement {
-  background-color: blue;
-  padding:1em;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 1em;
+  width: 540px;
+  height: fit-content;
+  margin-left: 1em;
+  padding: 0 1em;
+}
+
+.announcement #update-contents {
+  border: 1px solid black;
+  margin: 0.25em;
+  padding: 0.1em;
+}
+
+.announcement p {
+  background-color: rgba(255, 218, 185, 0.636);
+  padding: 0.5em;
+  border-radius: 0.5em;
 }
 
 .mainApp {
@@ -160,21 +177,48 @@ html {
   font-weight: bold;
 }
 
-.letter {
-  margin-bottom: 1em;
-  display: flex;
-  flex-direction: row;
+.mainLetter {
+  padding: 0.5em;
+}
+
+.extraLetter {
+  padding: 0.3em;
+}
+
+.mainLetter img {
   max-height: var(--letter-size);
   max-width: var(--letter-size);
 }
 
-.letter img {
-  max-height: var(--letter-size);
-  max-width: var(--letter-size);
+.extraLetter img {
+  max-height: calc(var(--letter-size) * 0.75);
+  max-width: calc(var(--letter-size) * 0.75);
+}
+
+.letter {
+  width: fit-content;
+  height: fit-content;
 }
 
 .letter:hover {
   opacity: 0.8;
+}
+
+.main-letter-box {
+  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(5, 100px);
+}
+
+.slider {
+  padding: 1em;
+  background-color: white;
+  height: fit-content;
+  width: 200px;
+  display: grid;
+  grid-template-columns: repeat(3, 66px);
+  grid-template-rows: repeat(1, 0px);
 }
 
 .iconButton {

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import "../main.css";
 import Letter from "./Letter";
 import CustomButton from "./CustomButton";
+import Slider from "./Slider";
 
 // import all images
-// CREDIT GOES TO:
-// https://stackoverflow.com/questions/42118296/dynamically-import-images-from-a-directory-using-webpack 
+// CREDIT: https://stackoverflow.com/questions/42118296/dynamically-import-images-from-a-directory-using-webpack 
 function importAllImages(r) {
     let images = {};
     r.keys().map((item) => {
@@ -31,15 +31,13 @@ const FIRSTS = [
     {id: "fc-t", char: 'ㅌ', pic: images['fc_t.png']},
     {id: "fc-p", char: 'ㅍ', pic: images['fc_p.png']},
     {id: "fc-h", char: 'ㅎ', pic: images['fc_h.png']},
-]
-const FIRST_EXTRAS = [
+], FIRST_EXTRAS = [
     {id: "fxc-g", char: 'ㄱ', pic: images['fxc_g.png']},
     {id: "fxc-d", char: 'ㄷ', pic: images['fxc_d.png']},
     {id: "fxc-b", char: 'ㅂ', pic: images['fxc_b.png']},
     {id: "fxc-s", char: 'ㅅ', pic: images['fxc_s.png']},
     {id: "fxc-j", char: 'ㅈ', pic: images['fxc_j.png']},
-]
-const VOWELS = [
+], VOWELS = [
     {id: "v-ah", char: 'ㅏ', pic: images['v_ah.png']},
     {id: "v-ae", char: 'ㅐ', pic: images['v_ae.png']},
     {id: "v-yah", char: 'ㅑ', pic: images['v_yah.png']},
@@ -54,15 +52,13 @@ const VOWELS = [
     {id: "v-yu", char: 'ㅠ', pic: images['v_yu.png']},
     {id: "v-eu", char: 'ㅡ', pic: images['v_eu.png']},
     {id: "v-ee", char: 'ㅣ', pic: images['v_ee.png']},
-]
-const VOWEL_EXTRAS = [
+], VOWEL_EXTRAS = [
     {id: "vx-ah", char: 'ㅏ', pic: images['vx_ah.png']},
     {id: "vx-ae", char: 'ㅐ', pic: images['vx_ae.png']},
     {id: "vx-uh", char: 'ㅓ', pic: images['vx_uh.png']},
     {id: "vx-eh", char: 'ㅔ', pic: images['vx_eh.png']},
     {id: "vx-ee", char: 'ㅣ', pic: images['vx_ee.png']},
-]
-const LASTS = [
+], LASTS = [
     {id: "lc-g", char: 'ㄱ', pic: images['lc_g.png']},
     {id: "lc-n", char: 'ㄴ', pic: images['lc_n.png']},
     {id: "lc-d", char: 'ㄷ', pic: images['lc_d.png']},
@@ -77,8 +73,7 @@ const LASTS = [
     {id: "lc-t", char: 'ㅌ', pic: images['lc_t.png']},
     {id: "lc-p", char: 'ㅍ', pic: images['lc_p.png']},
     {id: "lc-h", char: 'ㅎ', pic: images['lc_h.png']},
-]
-const LAST_EXTRAS = [
+], LAST_EXTRAS = [
     {id: "lxc-g", char: 'ㄱ', pic: images['lxc_g.png']},
     {id: "lxc-s", char: 'ㅅ', pic: images['lxc_s.png']},
     {id: "lxc-j", char: 'ㅈ', pic: images['lxc_j.png']},
@@ -87,10 +82,7 @@ const LAST_EXTRAS = [
     {id: "lxc-b", char: 'ㅂ', pic: images['lxc_b.png']},
     {id: "lxc-t", char: 'ㅌ', pic: images['lxc_t.png']},
     {id: "lxc-p", char: 'ㅍ', pic: images['lxc_p.png']},
-]
-
-// other
-const FORMAT_WIDTH = 3;
+];
 
 // now, back to the main part of the app
 function getImages(step) {
@@ -112,41 +104,61 @@ function getImages(step) {
             return [];
     }
     let present = [], slider = [];
-    lib.forEach((entry, i) => {
-        const {id, char, pic} = entry;
+    lib.forEach(({id, char, pic}, i) => {
         present.push(
             <>
-                {(i % FORMAT_WIDTH === 0) ? <br /> : null}
-                <Letter id={id} char={char} pic={pic} />
+                <Letter className="letter mainLetter"
+                    id={id} char={char} pic={pic} />
             </>
-        );
+        )
     });
-    exr.forEach((entry, i) => {
-        const {id, char, pic} = entry;
+    exr.forEach(({id, char, pic}, i) => {
         slider.push(
-            <>
-                <Letter id={id} char={char} pic={pic} />
-            </>
+            <Letter className="letter extraLetter" 
+                count={i} id={id} char={char} pic={pic} />
         )
     });
     return [present, slider];
 }
 
 export default function LetterPanel() {
+    // iterate through each set of letters
     const [step, setStep] = useState(0);
-    const upgradeToNextLetters = () => setStep((step + 1) % 4);
+    const upgradeToNextLetters = (() => setStep((step + 1) % 4));
+    
+    // display slider when a certain vowel or consonant is chosen
+    // ... after the letter is dropped onto the board
+    const [slider, setSlider] = useState(false);
+    const showSlider = (() => setSlider((state) => !state));
+
+    // go back or forward with slider, move by count value
+    const [next, setNext] = useState(0);
+    const toggleNext = (() => setNext((i) => next + 1));
+    const togglePrev = (() => setNext((i) => next - 1));
+
+    // all images, separated by main or extra letters
+    const [mainImages, extraImages] = getImages(step);
+
     return (
-        <div>
-            {(step < 3) ?
-                getImages(step) :
-                <div><b>You've finished!</b></div>
-            }<br />
+        <>
+            <div className="main-letter-box">
+                {(step < 3) ? mainImages : <b>You've finished!</b>}
+            </div>
+            <div className="extra-letter-box flex">
+                <button className="slider-button" onClick={togglePrev}
+                    style={{fontWeight: 'bold'}}>{"<"}</button>
+                <Slider className="slider flex">
+                    {extraImages}
+                </Slider>
+                <button className="slider-button" onClick={toggleNext}
+                    style={{fontWeight: 'bold'}}>{">"}</button>
+            </div>
             <CustomButton
-                className="customButton panelButton"
-                onClick={upgradeToNextLetters}
-            >
-                {(step === 3) ? "START OVER" : (step > 1) ? "FINISH" : "NEXT"}
-            </CustomButton>
-        </div>
+                    className="customButton panelButton"
+                    onClick={upgradeToNextLetters}
+                >
+                    {(step === 3) ? "START OVER" : (step > 1) ? "FINISH" : "NEXT"}
+                </CustomButton>
+        </>
     );
 }
