@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import AppHeader from "./components/AppHeader";
-import PropertyPanel from "./components/PropertyPanel";
+import PropertyMain from "./components/PropertyMain";
 import PropertyAssist from "./components/PropertyAssist";
-import PropertyInteractive from './components/PropertyInteractive';
 import "./main.css";
 import appLogo from "./images/extra/app_logo.png";
 import { DndProvider } from 'react-dnd';
@@ -53,23 +52,22 @@ export default function App() {
   );
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className="mainApp">
-        <AppHeader className="appHeader flex" />
-        {announcement}
-        <div className="title flex">
-          <img id="app-logo" src={appLogo} alt="ㄱㄴㄷㄹ - Website Logo" />
-          <div>
-            <span>Korean Building Blocks</span><br />
-            <small>Learn Korean by assembling different characters to create words/sounds.</small>
-          </div>
-        </div>
-        <div className="flex">
-          <PropertyPanel />
-          <PropertyInteractive />
-          <PropertyAssist />
+    <div className="mainApp">
+      <AppHeader className="appHeader flex" />
+      {announcement}
+      <div className="title flex">
+        <img id="app-logo" src={appLogo} alt="ㄱㄴㄷㄹ - Website Logo" />
+        <div>
+          <span>Korean Building Blocks</span><br />
+          <small>Learn Korean by assembling different characters to create words/sounds.</small>
         </div>
       </div>
-    </DndProvider>
+      <div className="flex">
+        <DndProvider backend={HTML5Backend}>
+          <PropertyMain />
+          <PropertyAssist />
+        </DndProvider>
+      </div>
+    </div>
   );
 }

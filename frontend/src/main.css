@@ -195,15 +195,6 @@ html {
   max-width: calc(var(--letter-size) * 0.75);
 }
 
-.letter {
-  width: fit-content;
-  height: fit-content;
-}
-
-.letter:hover {
-  opacity: 0.8;
-}
-
 .main-letter-box {
   width: fit-content;
   display: grid;
