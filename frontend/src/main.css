@@ -90,16 +90,26 @@ html {
   border-radius: 1em;
 }
 
-#panel-instruct {
+.explain-before {
   font-size: smaller;
   display: block;
   text-align: center;
+}
+
+.board-show {
+  margin-bottom: -5px;
 }
 
 .board {
   background-color: white;
   border: 1px solid black;
   margin: 2.5%;
+}
+
+#board-show p {
+  font-size: smaller;
+  justify-content: center;
+  align-items: center;
 }
 
 .mainBoard {

@@ -4,9 +4,7 @@ import CustomButton from "./CustomButton";
 import CustomControls from "./CustomControls";
 import Slider from "./Slider";
 import HelperBoard from "./HelperBoard";
-import PageModal from "./PageModal";
 import PropertyModal from "./PropertyModal";
-import { useDrag, useDrop } from 'react-dnd';
 
 // import all images
 // CREDIT: https://stackoverflow.com/questions/42118296/dynamically-import-images-from-a-directory-using-webpack 
@@ -88,177 +86,7 @@ const FIRSTS = [
     { id: "lxc-p", char: 'ㅍ', pic: images['lxc_p.png'] },
 ];
 
-function PropertyPanel() {
-    // get letter from letter component's hover state, and
-    // show it on the helper component
-    const [state, setState] = useState(false);
-    const toggleState = (() => {
-        setState((s) => !s);
-        window.alert("TEST");
-    });
-
-    // display slider when a certain vowel or consonant is chosen
-    // ... after the letter is dropped onto the board
-    const [slider, setSlider] = useState(false);
-    const showSlider = (() => setSlider((state) => !state));
-
-    // go back or forward with slider, move by count value
-    const [next, setNext] = useState(0);
-    const toggleNext = (() => setNext(next + 1));
-    const togglePrev = (() => setNext(next - 1));
-
-    // all images, separated by main or extra letters
-    // 0: get first consonants
-    // 1: get vowels
-    // 2: get concluding consonants
-    const [step, setStep] = useState(0);
-    const upgradeToNextLetters = (() => setStep((step + 1) % 4));
-
-    // get all images by its designated step
-    function getImages(step) {
-        let lib, exr;
-        switch (step) {
-            case 0:
-                lib = FIRSTS; exr = FIRST_EXTRAS;
-                break;
-            case 1:
-                lib = VOWELS; exr = VOWEL_EXTRAS;
-                break;
-            case 2:
-                lib = LASTS; exr = LAST_EXTRAS;
-                break;
-            default:
-                return [];
-        }
-        let present = [], slider = [];
-        lib.forEach(({ id, char, pic }) => {
-            present.push(
-                <Letter className="letter mainLetter" id={id} char={char} pic={pic} />
-            )
-        });
-        exr.forEach(({ id, char, pic }, i) => {
-            slider.push(
-                <Letter className="letter extraLetter"
-                    count={i} id={id} char={char} pic={pic}
-                    toggleState={toggleState} />
-            )
-        });
-        return [present, slider];
-    }
-    const [mainImages, extraImages] = getImages(step);
-
-    // panelProperty is for letters 
-    // interact-panel is for board, controls, and help components.
-    return (
-        <>
-            <div className="panelProperty">
-                <span id="panel-instruct">Click and drag to add a letter in the box</span>
-                <div className="main-letter-box">
-                    {
-                        (step < 3) ? mainImages : <b>You've finished!</b>
-                    }
-                </div>
-                <div className="extra-letter-box flex">
-                    {
-                        slider &&
-                        <>
-                            <button className="slider-button" onClick={togglePrev}
-                                style={{ fontWeight: 'bold' }}>{"<"}</button>
-                            <Slider className="slider flex">
-                                {extraImages}
-                            </Slider>
-                            <button className="slider-button" onClick={toggleNext}
-                                style={{ fontWeight: 'bold' }}>{">"}</button>
-                        </>
-                    }
-                </div>
-                <CustomButton
-                    className="customButton panelButton" onClick={upgradeToNextLetters}
-                >
-                    {(step === 3) ? "START OVER" : (step > 1) ? "FINISH" : "NEXT"}
-                </CustomButton>
-                <Helper className="assist helper">
-                    {"ㄹ"}
-                </Helper>
-                <p>Testing state: {(state ? "High!" : "Low.")}</p>
-            </div>
-
-            <div className="stack interact-panel">
-                <Board className="board mainBoard"></Board>
-                <div className="iconDiv flex">
-                    <PropertyModal className="modalProperty" id="dictionary" icon={
-                        <i className="large material-icons">book</i>
-                    } />
-                    <PropertyModal className="modalProperty" id="sound" icon={
-                        <i className="large material-icons">volume_up</i>
-                    } />
-                </div>
-                <CustomControls className="assist controlpanel" />
-            </div>
-        </>
-    );
-}
-
-// for Letter
-function Letter(props) {
-    const {
-        id, char, pic, className,
-        toggleState, count = null
-    } = props;
-
-    // for dragging and dropping letters
-    const [{ isDragging }, dragRef] = useDrag({
-        type: 'letter',
-        item: { id, char, pic },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging()
-        })
-    });
-
-    // for handling hover states on Letters AND add styles
-    const [opacity, setOpacity] = useState("1.0");
-    const [show, setShow] = useState(false);
-    const styles = {
-        width: 'fit-content',
-        height: 'fit-content',
-        opacity: opacity
-    }
-
-    // ... to return letter data to parent component after hover state
-    const handleHover = (() => {
-        setOpacity('0.8');
-        setShow(true);
-    }), exitHover = (() => {
-        setOpacity('1.0');
-        setShow(false);
-    });
-
-    // return data back to property panel for helper
-    /*function handleDataWhenHover() {
-        window.alert("TEST");
-    }*/
-
-    // for 'show', connect to the helper component to show data there
-    return (
-        <div className={className} style={styles}
-            onMouseOver={handleHover} onMouseLeave={exitHover}
-            onClick={toggleState}>
-            <img count={count} id={id} src={pic}
-                alt={"Representation of " + char}
-                ref={dragRef} />
-            {
-                isDragging &&
-                <PageModal className="pageModal" title={`You are dragging ${char}`} />
-            }
-            {
-                show &&
-                <b>Showing: {char}</b>
-            }
-        </div>
-    );
-}
-
-const DESCRPTIONS = new Map([
+const DESCRIPTIONS = new Map([
     ['ㄱ', ['-g-', "Good, Great"]],
     ['ㄴ', ['-n-', "Nice, Fun"]],
     ['ㄷ', ['-d-', "Dog, Dark"]],
@@ -282,63 +110,197 @@ const DESCRPTIONS = new Map([
     ['ㅖ', ['yeh', "Yes"]],
     ['ㅗ', ['o', "Gold, Sold, Foretold"]],
     ['ㅛ', ['yo', "Yo-yo"]],
-    ['ㅜ', ['u'], "Stew", "Cool", "Moon"],
-    ['ㅠ', ['yu'], "You"],
-    ['ㅡ', ['eu'], "Stood, Could, Would"],
-    ['ㅣ', ['ee'], "Cheese, Peel, Steal"]
+    ['ㅜ', ['u', "Stew", "Cool", "Moon"]],
+    ['ㅠ', ['yu', "You"]],
+    ['ㅡ', ['eu', "Stood, Could, Would"]],
+    ['ㅣ', ['ee', "Cheese, Peel, Steal"]]
 ]);
 
-function Helper(props) {
-    const { children = null } = props;
-    const descAttributes = DESCRPTIONS.get(children);
-    return (
-        <div
-            className={props.className}
-        >
-            <div className="flex">
-                <div>
-                    <HelperBoard className="board sideBoard">
-                        {(children !== null) ? children : ""}
-                    </HelperBoard>
-                </div>
-                <div className="assistant-text">
-                    <b>{descAttributes[0]}</b>
-                    <p>{descAttributes[1]}</p>
+function PropertyPanel() {
+    // get letter from letter component's hover state, and
+    // show it on the helper component
+    const [dataFromChild, setDataFromChild] = useState("");
+    
+    // display slider when a certain vowel or consonant is chosen
+    // ... after the letter is dropped onto the board
+    const [slider, setSlider] = useState(false);
+    const showSlider = (() => setSlider((state) => !state));
+    const [next, setNext] = useState(0);
+    const toggleNext = (() => setNext(next + 1));
+    const togglePrev = (() => setNext(next - 1));
+
+    // all images, separated by main or extra letters
+    const [step, setStep] = useState(0);
+    const upgradeToNextLetters = (() => setStep((step + 1) % 4));
+
+    // get all images by its designated step
+    function getImages(step) {
+        let lib, exr;
+        switch (step) {
+            case 0:
+                lib = FIRSTS; exr = FIRST_EXTRAS; break;
+            case 1:
+                lib = VOWELS; exr = VOWEL_EXTRAS; break;
+            case 2:
+                lib = LASTS; exr = LAST_EXTRAS; break;
+            default: return [];
+        }
+        let present = [], slider = [];
+        lib.forEach(({ id, char, pic }) => {
+            present.push(
+                <Letter className="letter mainLetter" 
+                    id={id} char={char} pic={pic} />
+            )
+        });
+        exr.forEach(({ id, char, pic }, i) => {
+            slider.push(
+                <Letter className="letter extraLetter"
+                    count={i} id={id} char={char} pic={pic}
+                    toggleState={() => setDataFromChild(char)} />
+            )
+        });
+        return [present, slider];
+    }
+
+    function updateHelperTool(data) {
+        const descAttrs = (data) ? 
+            DESCRIPTIONS.get(data) : [null, null];
+        return (
+            <div className="assist helper">
+                <div className="flex">
+                    <div>
+                        <HelperBoard className="board sideBoard">
+                            {descAttrs[0]}
+                        </HelperBoard>
+                    </div>
+                    <div className="assistant-text">
+                        <b>{descAttrs[0]}</b>
+                        <p>{descAttrs[1]}</p>
+                    </div>
                 </div>
             </div>
+        );
+    }
+
+    // array of pictures and descriptions for data
+    const [mainImages, extraImages] = getImages(step);
+    const helpData = updateHelperTool(dataFromChild);
+
+    // panelProperty is for letters 
+    // interact-panel is for board, controls, and help components.
+    return (
+        <>
+            <div className="panelProperty">
+                <span className="explain-before">
+                    Click on a letter to insert to the canvas
+                </span>
+                <div className="main-letter-box">
+                    {(step < 3) ? mainImages : <b>You've finished!</b>}
+                </div>
+                <div className="extra-letter-box flex">
+                    {
+                        slider &&
+                        <>
+                            <button className="slider-button" onClick={togglePrev}
+                                style={{ fontWeight: 'bold' }}>{"<"}</button>
+                            <Slider className="slider flex">
+                                {extraImages}
+                            </Slider>
+                            <button className="slider-button" onClick={toggleNext}
+                                style={{ fontWeight: 'bold' }}>{">"}</button>
+                        </>
+                    }
+                </div>
+                <CustomButton
+                    className="customButton panelButton" onClick={upgradeToNextLetters}
+                >
+                    {(step === 3) ? "START OVER" : (step > 1) ? "FINISH" : "NEXT"}
+                </CustomButton>
+                <div>
+                    {helpData || dataFromChild}
+                </div>
+                <span>
+                    TEST: {dataFromChild}
+                </span>
+            </div>
+
+            <div className="stack interact-panel">
+                <div>
+                    <p className="explain-before board-show">CANVAS</p>
+                    <Board className="board mainBoard">A</Board>
+                </div>
+                <div className="iconDiv flex">
+                    <PropertyModal className="modalProperty" id="dictionary" icon={
+                        <i className="large material-icons">book</i>
+                    } />
+                    <PropertyModal className="modalProperty" id="sound" icon={
+                        <i className="large material-icons">volume_up</i>
+                    } />
+                </div>
+                <CustomControls className="assist controlpanel" />
+            </div>
+        </>
+    );
+}
+
+// for Letter
+function Letter(props) {
+    const {
+        id, char, pic, className,
+        recvDataFromChild, count = null
+    } = props;
+
+    // for handling hover states on Letters AND add styles
+    const [opacity, setOpacity] = useState("1.0");
+    const [showData, setShow] = useState(false);
+    const styles = {
+        width: 'fit-content',
+        height: 'fit-content',
+        userSelect: 'none',
+        opacity: opacity
+    }
+
+    // ... to return letter data to parent component after hover state
+    const handleHover = (() => {
+        setOpacity('0.8');
+        setShow(true);
+        recvDataFromChild("high");
+    }), exitHover = (() => {
+        setOpacity('1.0');
+        setShow(false);
+        recvDataFromChild("low");
+    });
+
+    // for 'show', connect to the helper component to show data there
+    return (
+        <div className={className} style={styles}
+            onMouseOver={handleHover} onMouseLeave={exitHover}
+        >
+            <img count={count} id={id} src={pic}
+                alt={"Representation of " + char} />
+            {
+                showData &&
+                <b>Showing: {char}</b>
+            }
         </div>
     );
 }
 
 function Board(props) {
+    const { className, children } = props;
     const localStyles = {
         textAlign: 'center',
-        fontSize: (props.className === "board sideBoard") ?
-            '48px' : (props.className === "board mainBoard") ?
-                '200px' : '16px'
+        fontSize: (className === "board sideBoard") ?
+            '48px' : (className === "board mainBoard") ?
+            '200px' : '16px'
     };
 
-    const [board, setBoard] = useState([]);
-    const [{ isOver }, dropRef] = useDrop({
-        accept: 'letter',
-        drop: (item) => setBoard((board) => !board.includes(item) ?
-            [...board, item] : board),
-        collect: (monitor) => ({
-            isOver: monitor.isOver()
-        })
-    });
-
     return (
-        <div
-            id={props.id}
-            className={props.className}
-        >
+        <div className={className}>
             <div className="board-text"
                 style={localStyles}
-                ref={dropRef}
             >
-                {board.map((b) => <div>{b.char}</div>)}
-                {isOver && <div>Drop!</div>}
+                {children}
             </div>
         </div>
     );
