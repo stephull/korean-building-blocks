@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "../main.css";
-import CustomButton from "./CustomButton";
+import ButtonCustom from "./ButtonCustom";
 
 export default function CustomControls(props) {
   const [doing, setDoing] = useState(true);
@@ -19,18 +19,18 @@ export default function CustomControls(props) {
           <b style={{ padding: '1px' }}>Controls</b>
         </div>
         <div className="flex">
-          <CustomButton
+          <ButtonCustom
             className="customButton ctrlButton"
             onClick={toggleDo}
           >
             {(doing ? "Undo" : "Redo")}
-          </CustomButton>
-          <CustomButton
+          </ButtonCustom>
+          <ButtonCustom
             className="customButton ctrlButton"
             onClick={toggleReset}
           >
             Reset
-          </CustomButton>
+          </ButtonCustom>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "../main.css";
-import CustomButton from "./CustomButton";
+import ButtonCustom from "./ButtonCustom";
 import CustomControls from "./CustomControls";
 import Slider from "./Slider";
 import HelperBoard from "./HelperBoard";
@@ -211,11 +211,11 @@ function PropertyPanel() {
                         </>
                     }
                 </div>
-                <CustomButton
+                <ButtonCustom
                     className="customButton panelButton" onClick={upgradeToNextLetters}
                 >
                     {(step === 3) ? "START OVER" : (step > 1) ? "FINISH" : "NEXT"}
-                </CustomButton>
+                </ButtonCustom>
                 <div>
                     {helpData || dataFromChild}
                 </div>

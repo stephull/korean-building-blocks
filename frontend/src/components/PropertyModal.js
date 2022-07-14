@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../main.css";
 
 import PageModal from './PageModal';
-import IconButton from './IconButton';
+import ButtonIcon from './ButtonIcon';
 import SoundInterface from './SoundInterface';
 import Dictionary from './Dictionary';
 
@@ -19,13 +19,13 @@ export default function PropertyModal(props) {
 
     return (
         <div>
-            <IconButton
+            <ButtonIcon
                 className="iconButton"
                 id={id}
                 onClick={toggleModal}
             >
                 {icon}
-            </IconButton>
+            </ButtonIcon>
             {
                 (modalState) ?
                     <PageModal className="pageModal" title={

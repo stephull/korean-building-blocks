@@ -1,47 +1,39 @@
 import React from "react";
 import "../main.css";
-import CustomButton from "./CustomButton";
+import ButtonCustom from "./ButtonCustom";
 
-const FORM_URL = "https://forms.gle/vDYsqrX5e5UhbNZg7/";
-const items = ['HOME', 'ABOUT', 'RESOURCES', 'FEEDBACK', "SHARE"];
-
-function getHeaderLinks(item) {
-  switch (item) {
-    case items[0]:
-      window.location.reload();
-      break;
-    case items[1]:
-      window.open("/templates/about.html", "_blank");
-      break;
-    case items[2]:
-      window.open("/templates/resources.html", "_blank");
-      break;
-    case items[3]:
-      window.open(FORM_URL, "_blank");
-      break;
+function getHeaderLinks(i) {
+  switch (i) {
+    case 0:
     default:
-      return "/"
+      window.location.reload(); break;
+    case 1:
+      window.open("/templates/about.html", "_blank"); break;
+    case 2:
+      window.open("/templates/resources.html", "_blank"); break;
+    case 3:
+      window.open("https://forms.gle/vDYsqrX5e5UhbNZg7/", "_blank"); break;
   }
   return true;
 }
 
 function getHeaderItems() {
   let ret = [];
-  items.forEach((item) => {
-    ret.push(<CustomButton
-      onClick={() => getHeaderLinks(item)}
-      className="customButton headerButton">
-      <b>{item}</b>
-    </CustomButton>)
+  ['HOME', 'ABOUT', 'RESOURCES', 'FEEDBACK'].forEach((e, i) => {
+    ret.push(
+      <ButtonCustom
+        onClick={() => getHeaderLinks(i)}
+        className="customButton headerButton">
+          <b>{e}</b>
+      </ButtonCustom>
+    )
   })
   return ret;
 }
 
-export default function AppHeader(props) {
+export default function AppHeader() {
   return (
-    <div
-      className={props.className}
-    >
+    <div className="appHeader flex">
       {getHeaderItems()}
     </div>
   );

@@ -7,12 +7,11 @@ from bs4 import BeautifulSoup
 
 # main page
 @app.route("/")
-@app.route("/home")
 def main():
     return render_template('admin.html')
 
 # announcement
-@app.route('/announcement')
+@app.route('/api/announcement')
 def announcement():
     data = {
         "author": "Stephen",
@@ -24,17 +23,17 @@ def announcement():
     return data
 
 # just in case
-@app.route("/upload")
+@app.route("/api/upload")
 def upload():
     return None
 
 # for getting dictionary entries
-@app.route("/dictionary")
+@app.route("/api/dictionary")
 def dictionary():
     return None
 
 # for getting text-to-speech audio
-@app.route("/audio")
+@app.route("/api/audio")
 def audio():
     return None
 
